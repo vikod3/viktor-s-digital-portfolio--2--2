@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "motion/react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 
 interface ProjectPageProps {
   onBack: () => void;
+  onNext: () => void;
 }
 
-export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
+export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack, onNext }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -26,21 +27,35 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
         >
           <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260304_102019_f84678ca-ffe7-49a5-895a-75ac1f71ad46.mp4" type="video/mp4" />
         </video>
-        
+
         {/* Desktop-only Vignette Overlay */}
         <div className="hidden md:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.8)_100%)]" />
-        
+
         {/* Mobile-only Transition Gradients */}
         <div className="md:hidden absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
       </div>
 
       {/* Top Navigation */}
-      <div className="absolute top-6 right-6 md:top-8 md:right-12 flex items-center gap-4 md:gap-8 z-20">
-        <button 
+      <div className="absolute top-6 left-6 md:top-8 md:left-12 z-20">
+        <button
           onClick={onBack}
           className="text-[10px] font-mono tracking-[0.2em] uppercase flex items-center gap-2 hover:text-white/60 transition-colors"
         >
           <ArrowLeft size={12} /> Back Home
+        </button>
+      </div>
+      <div className="absolute top-6 right-6 md:top-8 md:right-12 flex items-center gap-4 md:gap-8 z-20">
+        <div className="hidden sm:flex items-center gap-4">
+          <span className="text-xs font-mono tracking-widest text-white">2/03</span>
+          <div className="w-16 md:w-24 h-[1px] bg-white/20 relative">
+            <div className="absolute left-0 top-0 h-full w-2/3 bg-white" />
+          </div>
+        </div>
+        <button
+          onClick={onNext}
+          className="text-[10px] font-mono tracking-[0.2em] uppercase flex items-center gap-2 hover:text-white transition-colors"
+        >
+          Next Project
         </button>
       </div>
 
@@ -73,8 +88,8 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
               className="space-y-8"
             >
               <p className="text-sm md:text-base text-white/70 leading-relaxed font-light">
-                Projecty is our flagship React engine, built for extreme speed and modularity. 
-                It redefines how modern web applications are structured, focusing on V8 optimization 
+                Projecty is our flagship React engine, built for extreme speed and modularity.
+                It redefines how modern web applications are structured, focusing on V8 optimization
                 and pixel-perfect rendering pipelines. Our final results are brilliant.
               </p>
               <button className="text-[10px] font-mono tracking-[0.3em] uppercase border-b border-white/40 pb-1 hover:border-white transition-all w-fit">

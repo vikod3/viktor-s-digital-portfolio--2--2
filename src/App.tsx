@@ -8,10 +8,11 @@ import { AnimatePresence, motion } from "motion/react";
 import { Snowflake, Maximize, Zap, ChevronRight } from "lucide-react";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { ProjectPage } from "./components/ProjectPage";
+import { AboutPage } from "./components/AboutPage";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [view, setView] = useState<"hero" | "project">("hero");
+  const [view, setView] = useState<"hero" | "project" | "about">("hero");
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black overflow-x-hidden overflow-y-auto relative">
@@ -41,10 +42,10 @@ export default function App() {
               >
                 <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260304_101127_49ce07b7-f19a-4882-b19c-1d2a27d97ac3.mp4" type="video/mp4" />
               </video>
-              
+
               {/* Desktop-only Vignette Overlay */}
               <div className="hidden md:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_70%,rgba(0,0,0,0.7)_100%)]" />
-              
+
               {/* Mobile-only Transition Gradients */}
               <div className="md:hidden absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
             </div>
@@ -52,12 +53,12 @@ export default function App() {
             {/* Top Navigation */}
             <div className="absolute top-6 right-6 md:top-8 md:right-12 flex items-center gap-4 md:gap-8 z-20">
               <div className="hidden sm:flex items-center gap-4">
-                <span className="text-xs font-mono tracking-widest text-white">1/01</span>
+                <span className="text-xs font-mono tracking-widest text-white">1/03</span>
                 <div className="w-16 md:w-24 h-[1px] bg-white/20 relative">
-                  <div className="absolute left-0 top-0 h-full w-1/4 bg-white" />
+                  <div className="absolute left-0 top-0 h-full w-1/3 bg-white" />
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => setView("project")}
                 className="text-[10px] font-mono tracking-[0.2em] uppercase flex items-center gap-2 hover:text-white transition-colors"
               >
@@ -184,7 +185,7 @@ export default function App() {
                 >
                   <div className="flex flex-wrap gap-2 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-full p-2 border border-white/5 w-full md:w-auto">
                     <span className="px-4 py-2 text-[10px] font-mono tracking-widest bg-white text-black rounded-full md:rounded-l-full md:rounded-r-sm">
-                      TS/JS 
+                      TS/JS
                     </span>
                     <span className="px-3 py-2 text-[10px] font-mono tracking-widest border border-white/20 rounded-full">
                       V1
@@ -200,8 +201,10 @@ export default function App() {
               </div>
             </main>
           </motion.div>
+        ) : view === "project" ? (
+          <ProjectPage key="project" onBack={() => setView("hero")} onNext={() => setView("about")} />
         ) : (
-          <ProjectPage key="project" onBack={() => setView("hero")} />
+          <AboutPage key="about" onBack={() => setView("project")} onHome={() => setView("hero")} />
         )}
       </AnimatePresence>
     </div>
