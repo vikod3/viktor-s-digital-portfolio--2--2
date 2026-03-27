@@ -96,7 +96,7 @@ export const ProjectPage: React.FC = () => {
             className="flex items-center w-full md:w-auto"
           >
             <div className="flex flex-wrap gap-2 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-full p-2 border border-white/5 w-full md:w-auto pointer-events-auto">
-              <span className="px-4 py-2 text-[10px] font-mono tracking-widest bg-white text-black rounded-full md:rounded-l-full md:rounded-r-sm">
+              <span className="px-4 py-2 text-[10px] font-mono tracking-widest bg-white text-black rounded-full">
                 TS/JS
               </span>
               <span className="px-3 py-2 text-[10px] font-mono tracking-widest border border-white/20 rounded-full">
