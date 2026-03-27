@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Snowflake, Maximize, Zap } from "lucide-react";
 
 interface ProjectPageProps {
   onBack: () => void;
@@ -16,7 +16,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
       className="min-h-screen bg-black text-white selection:bg-white selection:text-black overflow-x-hidden relative"
     >
       {/* Video Background / Header */}
-      <div className="relative md:absolute md:inset-0 z-0 overflow-hidden pointer-events-none h-[50vh] md:h-full">
+      <div className="relative md:absolute md:inset-0 z-0 overflow-hidden pointer-events-none h-[60vh] md:h-full">
         <video
           autoPlay
           loop
@@ -28,10 +28,10 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
         </video>
 
         {/* Desktop-only Vignette Overlay */}
-        <div className="hidden md:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.8)_100%)]" />
+        <div className="hidden md:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_70%,rgba(0,0,0,0.7)_100%)]" />
 
         {/* Mobile-only Transition Gradients */}
-        <div className="md:hidden absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
+        <div className="md:hidden absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
       </div>
 
       {/* Top Navigation */}
@@ -52,105 +52,104 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
         </div>
       </div>
 
-      <main className="container mx-auto px-6 md:px-12 pt-12 md:pt-48 min-h-screen flex flex-col justify-between pb-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24">
-          {/* Left Side: Large Titles */}
-          <div className="col-span-1 md:col-span-8 space-y-12">
+      {/* Main Content Grid */}
+      <main className="container mx-auto px-6 md:px-12 pt-12 md:pt-24 min-h-screen md:h-screen flex flex-col justify-between pb-12 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+          <div className="col-span-1 md:col-span-12 space-y-6 md:space-y-8">
             <motion.div
-              initial={{ opacity: 0, x: -40 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="space-y-4"
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-[60px] sm:text-[80px] md:text-[120px] leading-[0.85] font-medium tracking-tighter uppercase font-display">
-                PROJECTY <br />
-                ENGINE
+              <h1 className="text-[40px] sm:text-[56px] md:text-[72px] leading-[1] md:leading-[0.9] font-medium tracking-tighter uppercase max-w-xl font-display">
+                Automation <br />
+                Machines &bull;
               </h1>
-              <p className="text-xl md:text-3xl font-light max-w-2xl leading-tight text-white/90">
-                We create high-performance <br /> digital architectures.
-              </p>
             </motion.div>
-          </div>
 
-          {/* Right Side: Technical Specs */}
-          <div className="col-span-1 md:col-span-4 flex flex-col justify-start md:pt-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-6"
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-sm text-white max-w-md leading-relaxed font-light"
             >
-              <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase text-white font-display">
-                Technical Specs
-              </h3>
-              <div className="space-y-4">
-                {[
-                  { label: "Stack ", value: "React + Node + SQL" },
-                  { label: "Logic", value: "V8 - Runtime Logic" },
-                  { label: "Uptime", value: "99.9% High-Avail " },
-                  { label: "Scale", value: "Responsive Modern Layout" },
-                ].map((spec, i) => (
-                  <div
-                    key={i}
-                    className="flex justify-between items-end border-b border-white/20 pb-2 group cursor-default"
-                  >
-                    <span className="text-xs text-white group-hover:text-white transition-colors">
-                      {spec.label}
-                    </span>
-                    <span className="text-xs font-mono tracking-tight text-white">
-                      {spec.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              Developed with high-end skills and a pixel-perfect frame for those who don't just browse the web—they build it. Code your dreams....
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex gap-4"
+            >
+              {[Snowflake, Maximize, Zap].map((Icon, i) => (
+                <div
+                  key={i}
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 transition-colors cursor-pointer"
+                >
+                  <Icon size={16} className="text-white/80" />
+                </div>
+              ))}
             </motion.div>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mt-24 md:mt-0 items-end">
-          {/* Bottom Left: Info Blocks */}
-          <div className="col-span-1 md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="space-y-4 border-t border-white/20 pt-6"
-            >
-              <h4 className="text-xs font-mono tracking-[0.2em] uppercase text-white">
-                01 // CORE ARCHITECTURE
-              </h4>
-              <p className="text-[11px] text-white/50 uppercase tracking-widest leading-relaxed">
-                Check office in <br /> Los Angeles
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="space-y-4 border-t border-white/20 pt-6"
-            >
-              <h4 className="text-xs font-mono tracking-[0.2em] uppercase text-white">
-                02 // PERFORMANCE METRICS
-              </h4>
-              <p className="text-[11px] text-white/50 uppercase tracking-widest leading-relaxed">
-                Our effective SEO <br /> Positioning
-              </p>
-            </motion.div>
-          </div>
-
-          {/* Bottom Right: Meta Info */}
-          <div className="col-span-1 md:col-span-4 flex flex-col items-start md:items-end space-y-8">
-            <div className="text-left md:text-right space-y-2">
-              <p className="text-[10px] font-mono tracking-[0.2em] text-white/40 uppercase">
-                25 March 2026 | Project
-              </p>
-              <p className="text-sm md:text-base font-light italic text-white/80 max-w-[200px] md:max-w-none">
-                Photographs that attract attention.
-              </p>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-0 mt-16 md:mt-0">
+          {/* Technical Specs Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-6 md:p-8 w-full md:max-w-md"
+          >
+            <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/60 mb-5">
+              Technical Specs
+            </h3>
+            <div className="space-y-4">
+              {[
+                { label: "Stack", value: "React + Node + SQL" },
+                { label: "Logic", value: "V8 - Runtime Logic" },
+                { label: "Uptime", value: "99.9% High-Avail" },
+                { label: "Scale", value: "Responsive Modern Layout" },
+              ].map((spec, i) => (
+                <div
+                  key={i}
+                  className="flex justify-between items-end border-b border-white/10 pb-3 group cursor-default"
+                >
+                  <span className="text-xs text-white/70 group-hover:text-white transition-colors">
+                    {spec.label}
+                  </span>
+                  <span className="text-xs font-mono tracking-tight text-white">
+                    {spec.value}
+                  </span>
+                </div>
+              ))}
             </div>
-          </div>
+          </motion.div>
+
+          {/* Feature Tags */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            className="flex items-center w-full md:w-auto"
+          >
+            <div className="flex flex-wrap gap-2 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-full p-2 border border-white/5 w-full md:w-auto">
+              <span className="px-4 py-2 text-[10px] font-mono tracking-widest bg-white text-black rounded-full md:rounded-l-full md:rounded-r-sm">
+                TS/JS
+              </span>
+              <span className="px-3 py-2 text-[10px] font-mono tracking-widest border border-white/20 rounded-full">
+                V1
+              </span>
+              <span className="px-4 py-2 text-[10px] font-mono tracking-widest border border-white/20 rounded-full">
+                Full-Stack
+              </span>
+              <span className="px-4 py-2 text-[10px] font-mono tracking-widest border border-white/20 rounded-full">
+                Cloud-Ready
+              </span>
+            </div>
+          </motion.div>
         </div>
       </main>
     </motion.div>
