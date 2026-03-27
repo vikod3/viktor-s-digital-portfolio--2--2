@@ -13,7 +13,7 @@ export const ProjectPage: React.FC = () => {
         </Suspense>
       </div>
 
-      <main className="mx-auto px-4 md:px-6 pt-6 md:pt-10 min-h-screen md:h-screen flex flex-col justify-between pb-6 relative z-10">
+      <main className="mx-auto px-4 md:px-6 pt-6 md:pt-10 min-h-screen md:h-screen flex flex-col justify-between pb-6 relative z-10 pointer-events-none">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
           <div className="col-span-1 md:col-span-12 space-y-6 md:space-y-8">
             <motion.div
@@ -45,7 +45,7 @@ export const ProjectPage: React.FC = () => {
               {[Snowflake, Maximize, Zap].map((Icon, i) => (
                 <div
                   key={i}
-                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 transition-colors cursor-pointer"
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 transition-colors cursor-pointer pointer-events-auto"
                 >
                   <Icon size={16} className="text-white/80" />
                 </div>
@@ -60,7 +60,7 @@ export const ProjectPage: React.FC = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-6 md:p-8 w-full md:max-w-md"
+            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-6 md:p-8 w-full md:max-w-md pointer-events-auto"
           >
             <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/60 mb-5">
               Technical Specs
@@ -93,7 +93,7 @@ export const ProjectPage: React.FC = () => {
             transition={{ duration: 1, delay: 1 }}
             className="flex items-center w-full md:w-auto"
           >
-            <div className="flex flex-wrap gap-2 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-full p-2 border border-white/5 w-full md:w-auto">
+            <div className="flex flex-wrap gap-2 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-full p-2 border border-white/5 w-full md:w-auto pointer-events-auto">
               <span className="px-4 py-2 text-[10px] font-mono tracking-widest bg-white text-black rounded-full md:rounded-l-full md:rounded-r-sm">
                 TS/JS
               </span>
