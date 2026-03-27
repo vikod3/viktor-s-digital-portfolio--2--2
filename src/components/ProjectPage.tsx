@@ -1,13 +1,12 @@
 import React from "react";
 import { motion } from "motion/react";
-import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 interface ProjectPageProps {
   onBack: () => void;
-  onNext: () => void;
 }
 
-export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack, onNext }) => {
+export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -46,17 +45,11 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack, onNext }) => {
       </div>
       <div className="absolute top-6 right-6 md:top-8 md:right-12 flex items-center gap-4 md:gap-8 z-20">
         <div className="hidden sm:flex items-center gap-4">
-          <span className="text-xs font-mono tracking-widest text-white">2/03</span>
+          <span className="text-xs font-mono tracking-widest text-white">2/02</span>
           <div className="w-16 md:w-24 h-[1px] bg-white/20 relative">
-            <div className="absolute left-0 top-0 h-full w-2/3 bg-white" />
+            <div className="absolute left-0 top-0 h-full w-full bg-white" />
           </div>
         </div>
-        <button
-          onClick={onNext}
-          className="text-[10px] font-mono tracking-[0.2em] uppercase flex items-center gap-2 hover:text-white transition-colors"
-        >
-          Next Project
-        </button>
       </div>
 
       <main className="container mx-auto px-6 md:px-12 pt-12 md:pt-48 min-h-screen flex flex-col justify-between pb-12 relative z-10">
@@ -79,22 +72,37 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack, onNext }) => {
             </motion.div>
           </div>
 
-          {/* Right Side: Description */}
+          {/* Right Side: Technical Specs */}
           <div className="col-span-1 md:col-span-4 flex flex-col justify-start md:pt-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-8"
+              className="space-y-6"
             >
-              <p className="text-sm md:text-base text-white/70 leading-relaxed font-light">
-                Projecty is our flagship React engine, built for extreme speed and modularity.
-                It redefines how modern web applications are structured, focusing on V8 optimization
-                and pixel-perfect rendering pipelines. Our final results are brilliant.
-              </p>
-              <button className="text-[10px] font-mono tracking-[0.3em] uppercase border-b border-white/40 pb-1 hover:border-white transition-all w-fit">
-                Read More
-              </button>
+              <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase text-white font-display">
+                Technical Specs
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { label: "Stack ", value: "React + Node + SQL" },
+                  { label: "Logic", value: "V8 - Runtime Logic" },
+                  { label: "Uptime", value: "99.9% High-Avail " },
+                  { label: "Scale", value: "Responsive Modern Layout" },
+                ].map((spec, i) => (
+                  <div
+                    key={i}
+                    className="flex justify-between items-end border-b border-white/20 pb-2 group cursor-default"
+                  >
+                    <span className="text-xs text-white group-hover:text-white transition-colors">
+                      {spec.label}
+                    </span>
+                    <span className="text-xs font-mono tracking-tight text-white">
+                      {spec.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>
@@ -134,15 +142,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack, onNext }) => {
 
           {/* Bottom Right: Meta Info */}
           <div className="col-span-1 md:col-span-4 flex flex-col items-start md:items-end space-y-8">
-            <div className="flex gap-6">
-              <button className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">
-                <ArrowLeft size={16} />
-              </button>
-              <button className="p-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition-all">
-                <ArrowRight size={16} />
-              </button>
-            </div>
-            <div className="text-right space-y-2">
+            <div className="text-left md:text-right space-y-2">
               <p className="text-[10px] font-mono tracking-[0.2em] text-white/40 uppercase">
                 25 March 2026 | Project
               </p>

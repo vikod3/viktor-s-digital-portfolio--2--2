@@ -8,11 +8,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { Snowflake, Maximize, Zap, ChevronRight } from "lucide-react";
 import { LoadingScreen } from "./components/LoadingScreen";
 import { ProjectPage } from "./components/ProjectPage";
-import { AboutPage } from "./components/AboutPage";
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [view, setView] = useState<"hero" | "project" | "about">("hero");
+  const [view, setView] = useState<"hero" | "project">("hero");
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black overflow-x-hidden overflow-y-auto relative">
@@ -53,9 +52,9 @@ export default function App() {
             {/* Top Navigation */}
             <div className="absolute top-6 right-6 md:top-8 md:right-12 flex items-center gap-4 md:gap-8 z-20">
               <div className="hidden sm:flex items-center gap-4">
-                <span className="text-xs font-mono tracking-widest text-white">1/03</span>
+                <span className="text-xs font-mono tracking-widest text-white">1/02</span>
                 <div className="w-16 md:w-24 h-[1px] bg-white/20 relative">
-                  <div className="absolute left-0 top-0 h-full w-1/3 bg-white" />
+                  <div className="absolute left-0 top-0 h-full w-1/2 bg-white" />
                 </div>
               </div>
               <button
@@ -70,7 +69,7 @@ export default function App() {
             <main className="container mx-auto px-6 md:px-12 pt-12 md:pt-24 min-h-screen md:h-screen flex flex-col justify-between pb-12 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
                 {/* Left Column: Title and Description */}
-                <div className="col-span-1 md:col-span-9 space-y-6 md:space-y-8">
+                <div className="col-span-1 md:col-span-12 space-y-6 md:space-y-8">
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -108,39 +107,6 @@ export default function App() {
                   </motion.div>
                 </div>
 
-                {/* Right Column: Technical Specs */}
-                <div className="col-span-1 md:col-span-3 flex flex-col justify-start md:pt-32">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
-                    className="space-y-6"
-                  >
-                    <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase text-white font-display">
-                      Technical Specs
-                    </h3>
-                    <div className="space-y-4">
-                      {[
-                        { label: "Stack ", value: "React + Node + SQL" },
-                        { label: "Logic", value: "V8 - Runtime Logic" },
-                        { label: "Uptime", value: "99.9% High-Avail " },
-                        { label: "Scale", value: "Responsive Modern Layout" },
-                      ].map((spec, i) => (
-                        <div
-                          key={i}
-                          className="flex justify-between items-end border-b border-white/20 pb-2 group cursor-default"
-                        >
-                          <span className="text-xs text-white group-hover:text-white transition-colors">
-                            {spec.label}
-                          </span>
-                          <span className="text-xs font-mono tracking-tight text-white">
-                            {spec.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-                </div>
               </div>
 
               {/* Bottom Section */}
@@ -201,10 +167,8 @@ export default function App() {
               </div>
             </main>
           </motion.div>
-        ) : view === "project" ? (
-          <ProjectPage key="project" onBack={() => setView("hero")} onNext={() => setView("about")} />
         ) : (
-          <AboutPage key="about" onBack={() => setView("project")} onHome={() => setView("hero")} />
+          <ProjectPage key="project" onBack={() => setView("hero")} />
         )}
       </AnimatePresence>
     </div>
