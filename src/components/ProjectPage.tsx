@@ -7,7 +7,7 @@ const Spline = lazy(() => import("@splinetool/react-spline"));
 export const ProjectPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black overflow-x-hidden relative">
-      <div className="absolute inset-0 z-0" style={{ transform: 'translateX(-15%)' }}>
+      <div className="absolute inset-0 z-0" style={{ transform: 'translateX(15%)' }}>
         <Suspense fallback={<div className="w-full h-full bg-black" />}>
           <Spline scene="https://prod.spline.design/PIgTjpRFA03yfLyK/scene.splinecode" />
         </Suspense>
