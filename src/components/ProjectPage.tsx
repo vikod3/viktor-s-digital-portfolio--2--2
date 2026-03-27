@@ -1,21 +1,11 @@
 import React from "react";
 import { motion } from "motion/react";
-import { ArrowLeft, Snowflake, Maximize, Zap } from "lucide-react";
+import { Snowflake, Maximize, Zap } from "lucide-react";
 
-interface ProjectPageProps {
-  onBack: () => void;
-}
-
-export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
+export const ProjectPage: React.FC = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 }}
-      className="min-h-screen bg-black text-white selection:bg-white selection:text-black overflow-x-hidden relative"
-    >
-      {/* Video Background / Header */}
+    <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black overflow-x-hidden relative">
+      {/* Video Background */}
       <div className="relative md:absolute md:inset-0 z-0 overflow-hidden pointer-events-none h-[60vh] md:h-full">
         <video
           autoPlay
@@ -27,32 +17,10 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
           <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260304_102019_f84678ca-ffe7-49a5-895a-75ac1f71ad46.mp4" type="video/mp4" />
         </video>
 
-        {/* Desktop-only Vignette Overlay */}
         <div className="hidden md:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_70%,rgba(0,0,0,0.7)_100%)]" />
-
-        {/* Mobile-only Transition Gradients */}
         <div className="md:hidden absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
       </div>
 
-      {/* Top Navigation */}
-      <div className="absolute top-6 left-6 md:top-8 md:left-12 z-20">
-        <button
-          onClick={onBack}
-          className="text-[10px] font-mono tracking-[0.2em] uppercase flex items-center gap-2 hover:text-white/60 transition-colors"
-        >
-          <ArrowLeft size={12} /> Back Home
-        </button>
-      </div>
-      <div className="absolute top-6 right-6 md:top-8 md:right-12 flex items-center gap-4 md:gap-8 z-20">
-        <div className="hidden sm:flex items-center gap-4">
-          <span className="text-xs font-mono tracking-widest text-white">2/02</span>
-          <div className="w-16 md:w-24 h-[1px] bg-white/20 relative">
-            <div className="absolute left-0 top-0 h-full w-full bg-white" />
-          </div>
-        </div>
-      </div>
-
-      {/* Main Content Grid */}
       <main className="container mx-auto px-6 md:px-12 pt-12 md:pt-24 min-h-screen md:h-screen flex flex-col justify-between pb-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
           <div className="col-span-1 md:col-span-12 space-y-6 md:space-y-8">
@@ -96,7 +64,6 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-0 mt-16 md:mt-0">
-          {/* Technical Specs Card */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -128,7 +95,6 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
             </div>
           </motion.div>
 
-          {/* Feature Tags */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -152,6 +118,6 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ onBack }) => {
           </motion.div>
         </div>
       </main>
-    </motion.div>
+    </div>
   );
 };
