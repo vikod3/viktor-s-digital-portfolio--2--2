@@ -21,7 +21,9 @@ export const ProjectPage: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-[40px] sm:text-[56px] md:text-[72px] leading-[1] md:leading-[0.9] font-medium tracking-tighter uppercase max-w-xl font-display">
+              <h1
+                className="text-[40px] sm:text-[56px] md:text-[72px] leading-[1] md:leading-[0.9] font-extralight tracking-tight uppercase max-w-xl font-display bg-gradient-to-b from-white via-white/70 to-white/20 bg-clip-text text-transparent"
+              >
                 Automation <br />
                 Machines &bull;
               </h1>
