@@ -1,24 +1,16 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { motion } from "motion/react";
 import { Snowflake, Maximize, Zap } from "lucide-react";
+
+const Spline = lazy(() => import("@splinetool/react-spline"));
 
 export const ProjectPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black overflow-x-hidden relative">
-      {/* Video Background */}
-      <div className="relative md:absolute md:inset-0 z-0 overflow-hidden pointer-events-none h-[60vh] md:h-full">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260304_102019_f84678ca-ffe7-49a5-895a-75ac1f71ad46.mp4" type="video/mp4" />
-        </video>
-
-        <div className="hidden md:block absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_70%,rgba(0,0,0,0.7)_100%)]" />
-        <div className="md:hidden absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+      <div className="absolute inset-0 z-0">
+        <Suspense fallback={<div className="w-full h-full bg-black" />}>
+          <Spline scene="https://prod.spline.design/PIgTjpRFA03yfLyK/scene.splinecode" />
+        </Suspense>
       </div>
 
       <main className="mx-auto px-4 md:px-6 pt-6 md:pt-10 min-h-screen md:h-screen flex flex-col justify-between pb-6 relative z-10">
