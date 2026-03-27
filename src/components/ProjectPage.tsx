@@ -62,7 +62,7 @@ export const ProjectPage: React.FC = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[32px] p-6 md:p-8 w-full md:max-w-md pointer-events-auto"
+            className="p-6 md:p-8 w-full md:max-w-md pointer-events-auto"
           >
             <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/60 mb-5">
               Technical Specs
