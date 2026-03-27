@@ -21,7 +21,7 @@ export const ProjectPage: React.FC = () => {
         <div className="md:hidden absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
       </div>
 
-      <main className="container mx-auto px-6 md:px-12 pt-12 md:pt-24 min-h-screen md:h-screen flex flex-col justify-between pb-12 relative z-10">
+      <main className="mx-auto px-4 md:px-6 pt-6 md:pt-10 min-h-screen md:h-screen flex flex-col justify-between pb-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
           <div className="col-span-1 md:col-span-12 space-y-6 md:space-y-8">
             <motion.div
