@@ -22,7 +22,7 @@ export const ProjectPage: React.FC = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <h1
-                className="text-[40px] sm:text-[56px] md:text-[72px] leading-[1] md:leading-[0.9] font-extralight tracking-tight uppercase max-w-xl font-display bg-gradient-to-b from-white via-white/70 to-white/20 bg-clip-text text-transparent"
+                className="text-[40px] sm:text-[56px] md:text-[72px] leading-[1] md:leading-[0.9] font-extralight tracking-tight uppercase max-w-xl font-display bg-gradient-to-r from-white/20 via-white/70 to-white bg-clip-text text-transparent"
               >
                 Automation <br />
                 Machines &bull;
