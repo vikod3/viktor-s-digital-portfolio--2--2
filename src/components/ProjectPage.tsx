@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useRef, useEffect, useState, useCallback } from "react";
+import { Suspense, lazy, useRef, useEffect, useState, useCallback } from "react";
 import type { Application } from "@splinetool/runtime";
 import { HeroSection } from "./HeroSection";
 import { FeaturesSection } from "./FeaturesSection";
@@ -8,85 +8,52 @@ import { Navbar } from "./Navbar";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
-interface SplineTransform {
-  translateX: number;
-  translateY: number;
-  scale: number;
-  opacity: number;
-}
-
-function lerp(a: number, b: number, t: number): number {
+function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
 
-function getSplineTransform(scrollProgress: number): SplineTransform {
-  // Hero (0 - 0.25): Spline on the RIGHT, large
-  if (scrollProgress < 0.25) {
-    return { translateX: 28, translateY: 0, scale: 1.1, opacity: 1 };
+function getSplineTransform(p: number) {
+  if (p < 0.25) return { x: 28, y: 0, s: 1.1 };
+  if (p < 0.38) {
+    const t = (p - 0.25) / 0.13;
+    return { x: lerp(28, -30, t), y: lerp(0, -2, t), s: lerp(1.1, 1.05, t) };
   }
-  // Hero -> Features (0.25 - 0.38): Slide RIGHT to LEFT
-  if (scrollProgress < 0.38) {
-    const t = (scrollProgress - 0.25) / 0.13;
-    return {
-      translateX: lerp(28, -30, t),
-      translateY: lerp(0, -2, t),
-      scale: lerp(1.1, 1.05, t),
-      opacity: 1,
-    };
+  if (p < 0.55) return { x: -30, y: -2, s: 1.05 };
+  if (p < 0.68) {
+    const t = (p - 0.55) / 0.13;
+    return { x: lerp(-30, 30, t), y: lerp(-2, 0, t), s: lerp(1.05, 1.1, t) };
   }
-  // Features (0.38 - 0.55): Hold LEFT, large
-  if (scrollProgress < 0.55) {
-    return { translateX: -30, translateY: -2, scale: 1.05, opacity: 1 };
-  }
-  // Features -> Process (0.55 - 0.68): Slide LEFT to RIGHT
-  if (scrollProgress < 0.68) {
-    const t = (scrollProgress - 0.55) / 0.13;
-    return {
-      translateX: lerp(-30, 30, t),
-      translateY: lerp(-2, 0, t),
-      scale: lerp(1.05, 1.1, t),
-      opacity: 1,
-    };
-  }
-  // Process (0.68 - 1.0): Hold RIGHT, large
-  return { translateX: 30, translateY: 0, scale: 1.1, opacity: 1 };
+  return { x: 30, y: 0, s: 1.1 };
 }
 
-export const ProjectPage: React.FC = () => {
+export function ProjectPage() {
   const splineRef = useRef<Application | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const splineWrapperRef = useRef<HTMLDivElement>(null);
-  const [splineTransform, setSplineTransform] = useState<SplineTransform>({
-    translateX: 28,
-    translateY: 0,
-    scale: 1.1,
-    opacity: 1,
-  });
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [tf, setTf] = useState({ x: 28, y: 0, s: 1.1 });
 
-  const handleSplineLoad = useCallback((splineApp: Application) => {
-    splineRef.current = splineApp;
+  const onSplineLoad = useCallback((app: Application) => {
+    splineRef.current = app;
   }, []);
 
   useEffect(() => {
     let rafId: number;
-    let lastProgress = -1;
+    let last = -1;
 
     const onScroll = () => {
       rafId = requestAnimationFrame(() => {
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollProgress = docHeight > 0 ? Math.min(window.scrollY / docHeight, 1) : 0;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+        if (Math.abs(p - last) < 0.001) return;
+        last = p;
 
-        if (Math.abs(scrollProgress - lastProgress) < 0.001) return;
-        lastProgress = scrollProgress;
+        setTf(getSplineTransform(p));
 
-        setSplineTransform(getSplineTransform(scrollProgress));
-
-        if (splineRef.current) {
-          const allObjects = splineRef.current.getAllObjects();
-          if (allObjects.length > 0) {
-            const mainObj = allObjects[0];
-            mainObj.rotation.y = scrollProgress * Math.PI * 2;
-            mainObj.rotation.x = Math.sin(scrollProgress * Math.PI) * 0.2;
+        const app = splineRef.current;
+        if (app) {
+          const objs = app.getAllObjects();
+          if (objs.length > 0) {
+            objs[0].rotation.y = p * Math.PI * 2;
+            objs[0].rotation.x = Math.sin(p * Math.PI) * 0.2;
           }
         }
       });
@@ -94,7 +61,6 @@ export const ProjectPage: React.FC = () => {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(rafId);
@@ -102,47 +68,43 @@ export const ProjectPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const wrapper = splineWrapperRef.current;
-    if (!wrapper) return;
+    const el = wrapperRef.current;
+    if (!el) return;
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       window.scrollBy({ left: 0, top: e.deltaY, behavior: "instant" });
     };
 
-    let touchStartY = 0;
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
+    let touchY = 0;
+    const onTouchStart = (e: TouchEvent) => { touchY = e.touches[0].clientY; };
     const onTouchMove = (e: TouchEvent) => {
-      const deltaY = touchStartY - e.touches[0].clientY;
-      touchStartY = e.touches[0].clientY;
-      window.scrollBy({ left: 0, top: deltaY, behavior: "instant" });
+      const dy = touchY - e.touches[0].clientY;
+      touchY = e.touches[0].clientY;
+      window.scrollBy({ left: 0, top: dy, behavior: "instant" });
     };
 
-    wrapper.addEventListener("wheel", onWheel, { passive: false });
-    wrapper.addEventListener("touchstart", onTouchStart, { passive: true });
-    wrapper.addEventListener("touchmove", onTouchMove, { passive: true });
+    el.addEventListener("wheel", onWheel, { passive: false });
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: true });
     return () => {
-      wrapper.removeEventListener("wheel", onWheel);
-      wrapper.removeEventListener("touchstart", onTouchStart);
-      wrapper.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
     };
   }, []);
 
+  const interactiveChildren = "[&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_input]:pointer-events-auto";
+
   return (
-    <div
-      ref={containerRef}
-      className="bg-black text-white selection:bg-white selection:text-black overflow-x-hidden relative"
-    >
+    <div className="bg-black text-white selection:bg-white selection:text-black overflow-x-hidden relative">
       <ScrollProgressBar />
 
       <div
-        ref={splineWrapperRef}
+        ref={wrapperRef}
         className="fixed inset-0 z-20"
         style={{
-          transform: `translateX(${splineTransform.translateX}%) translateY(${splineTransform.translateY}%) scale(${splineTransform.scale})`,
-          opacity: splineTransform.opacity,
+          transform: `translateX(${tf.x}%) translateY(${tf.y}%) scale(${tf.s})`,
           willChange: "transform, opacity",
           transition: "opacity 0.15s ease-out",
         }}
@@ -150,21 +112,21 @@ export const ProjectPage: React.FC = () => {
         <Suspense fallback={<div className="w-full h-full bg-black" />}>
           <Spline
             scene="https://prod.spline.design/PIgTjpRFA03yfLyK/scene.splinecode"
-            onLoad={handleSplineLoad}
+            onLoad={onSplineLoad}
           />
         </Suspense>
       </div>
 
       <Navbar />
 
-      <div className="relative z-10 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_input]:pointer-events-auto">
+      <div className={`relative z-10 pointer-events-none ${interactiveChildren}`}>
         <HeroSection />
       </div>
 
-      <div className="relative z-30 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_input]:pointer-events-auto">
+      <div className={`relative z-30 pointer-events-none ${interactiveChildren}`}>
         <FeaturesSection />
         <ProcessSection />
       </div>
     </div>
   );
-};
+}

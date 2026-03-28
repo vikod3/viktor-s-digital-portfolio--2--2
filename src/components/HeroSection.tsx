@@ -1,8 +1,9 @@
-import React from "react";
 import { motion } from "motion/react";
 import { Snowflake, Maximize, Zap } from "lucide-react";
 
-export const HeroSection: React.FC = () => {
+const ICONS = [Snowflake, Maximize, Zap];
+
+export function HeroSection() {
   return (
     <section
       id="hero"
@@ -36,7 +37,7 @@ export const HeroSection: React.FC = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex gap-4 justify-center"
         >
-          {[Snowflake, Maximize, Zap].map((Icon, i) => (
+          {ICONS.map((Icon, i) => (
             <div
               key={i}
               className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 transition-colors cursor-pointer pointer-events-auto"
@@ -48,4 +49,4 @@ export const HeroSection: React.FC = () => {
       </div>
     </section>
   );
-};
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 
@@ -9,7 +9,11 @@ const NAV_LINKS = [
   { label: "Stats", href: "#stats" },
 ];
 
-export const Navbar: React.FC = () => {
+function smoothScroll(href: string) {
+  document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+}
+
+export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -21,11 +25,8 @@ export const Navbar: React.FC = () => {
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-      setMobileOpen(false);
-    }
+    smoothScroll(href);
+    setMobileOpen(false);
   };
 
   return (
@@ -34,9 +35,7 @@ export const Navbar: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 pointer-events-auto ${
-        scrolled
-          ? "bg-black/70 backdrop-blur-xl"
-          : "bg-transparent"
+        scrolled ? "bg-black/70 backdrop-blur-xl" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16 md:h-[72px]">
@@ -80,7 +79,6 @@ export const Navbar: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
           className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/[0.06]"
         >
           <div className="px-5 py-6 flex flex-col gap-5">
@@ -106,4 +104,4 @@ export const Navbar: React.FC = () => {
       )}
     </motion.nav>
   );
-};
+}

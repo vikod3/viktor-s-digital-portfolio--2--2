@@ -25,23 +25,3 @@
   }
 }
 
-@layer utilities {
-  .text-glow {
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-  }
-
-  .text-glow-strong {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 255, 255, 0.1);
-  }
-
-  .section-fade {
-    opacity: 0;
-    transform: translateY(60px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  }
-
-  .section-fade.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}

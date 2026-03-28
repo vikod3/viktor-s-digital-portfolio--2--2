@@ -1,28 +1,13 @@
-import React from "react";
 import { motion } from "motion/react";
 import { useInView } from "../hooks/useInView";
-import { Terminal, Rocket } from "lucide-react";
+import { Terminal, Rocket, type LucideIcon } from "lucide-react";
 
-const steps = [
-  {
-    icon: Terminal,
-    number: "01",
-    title: "Initialize & Develop",
-    details: ["TypeScript + Vite", "HMR < 50ms"],
-  },
-  {
-    icon: Rocket,
-    number: "02",
-    title: "Deploy & Monitor",
-    details: ["Zero-config CI/CD", "Live metrics"],
-  },
+const STEPS: { icon: LucideIcon; number: string; title: string; details: string[] }[] = [
+  { icon: Terminal, number: "01", title: "Initialize & Develop", details: ["TypeScript + Vite", "HMR < 50ms"] },
+  { icon: Rocket, number: "02", title: "Deploy & Monitor", details: ["Zero-config CI/CD", "Live metrics"] },
 ];
 
-const ProcessStep: React.FC<{
-  step: (typeof steps)[0];
-  index: number;
-  isLast: boolean;
-}> = ({ step, index, isLast }) => {
+function ProcessStep({ step, index, isLast }: { step: (typeof STEPS)[0]; index: number; isLast: boolean }) {
   const { ref, isInView } = useInView(0.2);
   const Icon = step.icon;
 
@@ -70,9 +55,9 @@ const ProcessStep: React.FC<{
       </div>
     </motion.div>
   );
-};
+}
 
-export const ProcessSection: React.FC = () => {
+export function ProcessSection() {
   const { ref, isInView } = useInView(0.05);
 
   return (
@@ -101,11 +86,11 @@ export const ProcessSection: React.FC = () => {
         </motion.div>
 
         <div>
-          {steps.map((step, i) => (
-            <ProcessStep key={step.number} step={step} index={i} isLast={i === steps.length - 1} />
+          {STEPS.map((step, i) => (
+            <ProcessStep key={step.number} step={step} index={i} isLast={i === STEPS.length - 1} />
           ))}
         </div>
       </div>
     </section>
   );
-};
+}

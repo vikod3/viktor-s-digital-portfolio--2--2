@@ -1,33 +1,14 @@
-import React from "react";
 import { motion } from "motion/react";
 import { useInView } from "../hooks/useInView";
-import { Cpu, Globe, Shield } from "lucide-react";
+import { Cpu, Globe, Shield, type LucideIcon } from "lucide-react";
 
-const features = [
-  {
-    icon: Cpu,
-    title: "Intelligent Runtime",
-    stat: "< 12ms",
-    statLabel: "Response",
-  },
-  {
-    icon: Globe,
-    title: "Edge Distribution",
-    stat: "200+",
-    statLabel: "Nodes",
-  },
-  {
-    icon: Shield,
-    title: "Zero-Trust Security",
-    stat: "256-bit",
-    statLabel: "Encryption",
-  },
+const FEATURES: { icon: LucideIcon; title: string; stat: string; statLabel: string }[] = [
+  { icon: Cpu, title: "Intelligent Runtime", stat: "< 12ms", statLabel: "Response" },
+  { icon: Globe, title: "Edge Distribution", stat: "200+", statLabel: "Nodes" },
+  { icon: Shield, title: "Zero-Trust Security", stat: "256-bit", statLabel: "Encryption" },
 ];
 
-const FeatureCard: React.FC<{
-  feature: (typeof features)[0];
-  index: number;
-}> = ({ feature, index }) => {
+function FeatureCard({ feature, index }: { feature: (typeof FEATURES)[0]; index: number }) {
   const { ref, isInView } = useInView(0.1);
   const Icon = feature.icon;
 
@@ -37,7 +18,7 @@ const FeatureCard: React.FC<{
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-      className="group relative p-6 md:p-8 border border-white/[0.06] rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-500 hover:border-white/[0.12] pointer-events-auto"
+      className="group p-6 md:p-8 border border-white/[0.06] rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] transition-all duration-500 hover:border-white/[0.12] pointer-events-auto"
     >
       <div className="flex items-start justify-between mb-4">
         <div className="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center group-hover:border-white/30 transition-colors duration-500">
@@ -51,9 +32,9 @@ const FeatureCard: React.FC<{
       <h3 className="text-sm font-medium text-white tracking-wide">{feature.title}</h3>
     </motion.div>
   );
-};
+}
 
-export const FeaturesSection: React.FC = () => {
+export function FeaturesSection() {
   const { ref, isInView } = useInView(0.05);
 
   return (
@@ -83,12 +64,12 @@ export const FeaturesSection: React.FC = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {features.map((feature, i) => (
-              <FeatureCard key={feature.title} feature={feature} index={i} />
+            {FEATURES.map((f, i) => (
+              <FeatureCard key={f.title} feature={f} index={i} />
             ))}
           </div>
         </div>
       </div>
     </section>
   );
-};
+}
