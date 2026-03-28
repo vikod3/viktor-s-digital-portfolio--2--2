@@ -3,8 +3,6 @@ import type { Application } from "@splinetool/runtime";
 import { HeroSection } from "./HeroSection";
 import { FeaturesSection } from "./FeaturesSection";
 import { ProcessSection } from "./ProcessSection";
-import { StatsSection } from "./StatsSection";
-import { FooterSection } from "./FooterSection";
 import { ScrollProgressBar } from "./ScrollProgressBar";
 import { Navbar } from "./Navbar";
 
@@ -22,13 +20,13 @@ function lerp(a: number, b: number, t: number): number {
 }
 
 function getSplineTransform(scrollProgress: number): SplineTransform {
-  // Hero (0 - 0.15): Spline on the RIGHT, large
-  if (scrollProgress < 0.15) {
+  // Hero (0 - 0.25): Spline on the RIGHT, large
+  if (scrollProgress < 0.25) {
     return { translateX: 28, translateY: 0, scale: 1.1, opacity: 1 };
   }
-  // Hero -> Features (0.15 - 0.25): Slide RIGHT to LEFT
-  if (scrollProgress < 0.25) {
-    const t = (scrollProgress - 0.15) / 0.1;
+  // Hero -> Features (0.25 - 0.38): Slide RIGHT to LEFT
+  if (scrollProgress < 0.38) {
+    const t = (scrollProgress - 0.25) / 0.13;
     return {
       translateX: lerp(28, -30, t),
       translateY: lerp(0, -2, t),
@@ -36,13 +34,13 @@ function getSplineTransform(scrollProgress: number): SplineTransform {
       opacity: 1,
     };
   }
-  // Features (0.25 - 0.38): Hold LEFT, large
-  if (scrollProgress < 0.38) {
+  // Features (0.38 - 0.55): Hold LEFT, large
+  if (scrollProgress < 0.55) {
     return { translateX: -30, translateY: -2, scale: 1.05, opacity: 1 };
   }
-  // Features -> Process (0.38 - 0.48): Slide LEFT to RIGHT
-  if (scrollProgress < 0.48) {
-    const t = (scrollProgress - 0.38) / 0.1;
+  // Features -> Process (0.55 - 0.68): Slide LEFT to RIGHT
+  if (scrollProgress < 0.68) {
+    const t = (scrollProgress - 0.55) / 0.13;
     return {
       translateX: lerp(-30, 30, t),
       translateY: lerp(-2, 0, t),
@@ -50,41 +48,8 @@ function getSplineTransform(scrollProgress: number): SplineTransform {
       opacity: 1,
     };
   }
-  // Process (0.48 - 0.58): Hold RIGHT, large
-  if (scrollProgress < 0.58) {
-    return { translateX: 30, translateY: 0, scale: 1.1, opacity: 1 };
-  }
-  // Process -> Stats (0.58 - 0.68): Slide RIGHT to LEFT
-  if (scrollProgress < 0.68) {
-    const t = (scrollProgress - 0.58) / 0.1;
-    return {
-      translateX: lerp(30, -28, t),
-      translateY: lerp(0, -3, t),
-      scale: lerp(1.1, 0.95, t),
-      opacity: 1,
-    };
-  }
-  // Stats (0.68 - 0.80): Hold LEFT
-  if (scrollProgress < 0.80) {
-    return { translateX: -28, translateY: -3, scale: 0.95, opacity: 1 };
-  }
-  // Stats -> Footer (0.80 - 0.90): Center + grow, stay visible
-  if (scrollProgress < 0.90) {
-    const t = (scrollProgress - 0.80) / 0.1;
-    return {
-      translateX: lerp(-28, 0, t),
-      translateY: lerp(-3, 0, t),
-      scale: lerp(0.95, 1.1, t),
-      opacity: 1,
-    };
-  }
-  // Footer (0.90 - 1.0): Center, large, fully visible
-  return {
-    translateX: 0,
-    translateY: 0,
-    scale: 1.1,
-    opacity: 1,
-  };
+  // Process (0.68 - 1.0): Hold RIGHT, large
+  return { translateX: 30, translateY: 0, scale: 1.1, opacity: 1 };
 }
 
 export const ProjectPage: React.FC = () => {
@@ -199,8 +164,6 @@ export const ProjectPage: React.FC = () => {
       <div className="relative z-30 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_input]:pointer-events-auto">
         <FeaturesSection />
         <ProcessSection />
-        <StatsSection />
-        <FooterSection />
       </div>
     </div>
   );
