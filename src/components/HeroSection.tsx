@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
-import { Snowflake, Maximize, Zap, ChevronDown } from "lucide-react";
+import { Snowflake, Maximize, Zap } from "lucide-react";
 
 export const HeroSection: React.FC = () => {
   return (
@@ -75,45 +75,7 @@ export const HeroSection: React.FC = () => {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          className="mt-6"
-        >
-          <div className="flex flex-wrap gap-2 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-full p-2 border border-white/5 w-fit pointer-events-auto">
-            <span className="px-4 py-2 text-[10px] font-mono tracking-widest bg-white text-black rounded-full">
-              TS/JS
-            </span>
-            <span className="px-3 py-2 text-[10px] font-mono tracking-widest border border-white/20 rounded-full">
-              V1
-            </span>
-            <span className="px-4 py-2 text-[10px] font-mono tracking-widest border border-white/20 rounded-full">
-              Full-Stack
-            </span>
-            <span className="px-4 py-2 text-[10px] font-mono tracking-widest border border-white/20 rounded-full">
-              Cloud-Ready
-            </span>
-          </div>
-        </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.4 }}
-        className="absolute bottom-8 left-[25%] -translate-x-1/2 pointer-events-auto"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2 cursor-pointer"
-          onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
-        >
-          <span className="text-[9px] font-mono tracking-[0.3em] uppercase text-white/40">Scroll</span>
-          <ChevronDown size={14} className="text-white/40" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
