@@ -1,36 +1,20 @@
 import React from "react";
 import { motion } from "motion/react";
 import { useInView } from "../hooks/useInView";
-import { Terminal, GitBranch, Rocket, Check } from "lucide-react";
+import { Terminal, Rocket } from "lucide-react";
 
 const steps = [
   {
     icon: Terminal,
     number: "01",
-    title: "Initialize",
-    description: "Scaffold your project with a single command. Pre-configured build tooling, linting, and type safety out of the box.",
-    details: ["TypeScript + Vite", "ESLint + Prettier", "Tailwind CSS v4"],
-  },
-  {
-    icon: GitBranch,
-    number: "02",
-    title: "Develop",
-    description: "Hot module replacement with instant feedback. Write once, deploy anywhere with our universal runtime adapter.",
-    details: ["HMR < 50ms", "Universal API layer", "Live error overlay"],
+    title: "Initialize & Develop",
+    details: ["TypeScript + Vite", "HMR < 50ms"],
   },
   {
     icon: Rocket,
-    number: "03",
-    title: "Deploy",
-    description: "Push to main and watch it fly. Automated CI/CD with preview environments, health checks, and instant rollback.",
-    details: ["Zero-config CI/CD", "Preview deploys", "Auto-scaling"],
-  },
-  {
-    icon: Check,
-    number: "04",
-    title: "Monitor",
-    description: "Real-time observability across every layer. Custom dashboards, anomaly detection, and automated incident response.",
-    details: ["Live metrics", "Error tracking", "Performance budgets"],
+    number: "02",
+    title: "Deploy & Monitor",
+    details: ["Zero-config CI/CD", "Live metrics"],
   },
 ];
 
@@ -52,7 +36,7 @@ const ProcessStep: React.FC<{
     >
       <div className="flex gap-6 md:gap-8">
         <div className="flex flex-col items-center">
-          <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-black relative z-10 group-hover:border-white/30">
+          <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center bg-black relative z-10">
             <Icon size={18} className="text-white/70" />
           </div>
           {!isLast && (
@@ -66,15 +50,12 @@ const ProcessStep: React.FC<{
         </div>
 
         <div className="pb-16 md:pb-20 flex-1">
-          <div className="flex items-baseline gap-4 mb-3">
+          <div className="flex items-baseline gap-4 mb-4">
             <span className="text-[10px] font-mono tracking-[0.2em] text-white/30">{step.number}</span>
             <h3 className="text-lg md:text-xl font-display font-light uppercase tracking-wide text-white">
               {step.title}
             </h3>
           </div>
-          <p className="text-sm text-white/50 leading-relaxed font-light max-w-md mb-4">
-            {step.description}
-          </p>
           <div className="flex flex-wrap gap-2">
             {step.details.map((detail) => (
               <span
@@ -117,9 +98,6 @@ export const ProcessSection: React.FC = () => {
             <br />
             <span className="text-white">To Production</span>
           </h2>
-          <p className="mt-6 text-sm text-white/50 max-w-lg leading-relaxed font-light">
-            A streamlined pipeline that takes your concept from first commit to global deployment in minutes.
-          </p>
         </motion.div>
 
         <div>

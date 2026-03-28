@@ -57,40 +57,15 @@ export const StatsSection: React.FC = () => {
               </span>
             </div>
             <h2 className="text-[32px] md:text-[48px] font-display font-extralight tracking-tight uppercase leading-[0.95]">
-              <span className="bg-gradient-to-r from-white/40 via-white to-white/40 bg-clip-text text-transparent">
-                Numbers That
-              </span>
-              <br />
-              <span className="text-white">Speak</span>
+              <span className="text-white">Numbers That Speak</span>
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-2 gap-8 md:gap-10 mb-16">
+          <div className="grid grid-cols-2 gap-8 md:gap-10">
             {stats.map((stat, i) => (
               <StatItem key={stat.label} stat={stat} index={i} />
             ))}
           </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="p-8 md:p-10 border border-white/[0.06] rounded-2xl bg-white/[0.02] pointer-events-auto"
-          >
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-              <div>
-                <h3 className="text-lg md:text-xl font-display font-light uppercase tracking-wide text-white mb-2">
-                  Ready to Ship?
-                </h3>
-                <p className="text-sm text-white/50 font-light max-w-md leading-relaxed">
-                  Deploy your first project in under 5 minutes. Zero configuration, instant global distribution.
-                </p>
-              </div>
-              <button className="px-8 py-3.5 bg-white text-black text-xs font-mono tracking-[0.15em] uppercase rounded-full hover:bg-white/90 transition-colors duration-300 whitespace-nowrap">
-                Get Started
-              </button>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

@@ -67,23 +67,22 @@ function getSplineTransform(scrollProgress: number): SplineTransform {
   if (scrollProgress < 0.80) {
     return { translateX: -28, translateY: -3, scale: 0.65, opacity: 1 };
   }
-  // Stats -> Footer (0.80 - 0.90): Center + grow, fade out
+  // Stats -> Footer (0.80 - 0.90): Center + grow, stay visible
   if (scrollProgress < 0.90) {
     const t = (scrollProgress - 0.80) / 0.1;
     return {
       translateX: lerp(-28, 0, t),
-      translateY: lerp(-3, -5, t),
-      scale: lerp(0.65, 1.2, t),
-      opacity: lerp(1, 0.3, t),
+      translateY: lerp(-3, 0, t),
+      scale: lerp(0.65, 1.1, t),
+      opacity: 1,
     };
   }
-  // Footer (0.90 - 1.0): Center, large, faded
-  const t = (scrollProgress - 0.90) / 0.1;
+  // Footer (0.90 - 1.0): Center, large, fully visible
   return {
     translateX: 0,
-    translateY: lerp(-5, -8, t),
-    scale: lerp(1.2, 1.3, t),
-    opacity: lerp(0.3, 0, t),
+    translateY: 0,
+    scale: 1.1,
+    opacity: 1,
   };
 }
 
