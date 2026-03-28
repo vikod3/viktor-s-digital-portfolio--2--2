@@ -89,6 +89,7 @@ function getSplineTransform(scrollProgress: number): SplineTransform {
 export const ProjectPage: React.FC = () => {
   const splineRef = useRef<Application | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const splineWrapperRef = useRef<HTMLDivElement>(null);
   const [splineTransform, setSplineTransform] = useState<SplineTransform>({
     translateX: 28,
     translateY: 0,
@@ -134,6 +135,35 @@ export const ProjectPage: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const wrapper = splineWrapperRef.current;
+    if (!wrapper) return;
+
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      window.scrollBy({ left: 0, top: e.deltaY, behavior: "instant" });
+    };
+
+    let touchStartY = 0;
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const deltaY = touchStartY - e.touches[0].clientY;
+      touchStartY = e.touches[0].clientY;
+      window.scrollBy({ left: 0, top: deltaY, behavior: "instant" });
+    };
+
+    wrapper.addEventListener("wheel", onWheel, { passive: false });
+    wrapper.addEventListener("touchstart", onTouchStart, { passive: true });
+    wrapper.addEventListener("touchmove", onTouchMove, { passive: true });
+    return () => {
+      wrapper.removeEventListener("wheel", onWheel);
+      wrapper.removeEventListener("touchstart", onTouchStart);
+      wrapper.removeEventListener("touchmove", onTouchMove);
+    };
+  }, []);
+
   return (
     <div
       ref={containerRef}
@@ -142,7 +172,8 @@ export const ProjectPage: React.FC = () => {
       <ScrollProgressBar />
 
       <div
-        className="fixed inset-0 z-0 pointer-events-none [&_canvas]:pointer-events-auto"
+        ref={splineWrapperRef}
+        className="fixed inset-0 z-20"
         style={{
           transform: `translateX(${splineTransform.translateX}%) translateY(${splineTransform.translateY}%) scale(${splineTransform.scale})`,
           opacity: splineTransform.opacity,
@@ -158,7 +189,7 @@ export const ProjectPage: React.FC = () => {
         </Suspense>
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_input]:pointer-events-auto">
         <HeroSection />
         <FeaturesSection />
         <ProcessSection />
