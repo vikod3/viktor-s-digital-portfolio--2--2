@@ -6,6 +6,7 @@ import { ProcessSection } from "./ProcessSection";
 import { StatsSection } from "./StatsSection";
 import { FooterSection } from "./FooterSection";
 import { ScrollProgressBar } from "./ScrollProgressBar";
+import { Navbar } from "./Navbar";
 
 const Spline = lazy(() => import("@splinetool/react-spline"));
 
@@ -188,6 +189,8 @@ export const ProjectPage: React.FC = () => {
           />
         </Suspense>
       </div>
+
+      <Navbar />
 
       <div className="relative z-10 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_input]:pointer-events-auto">
         <HeroSection />
