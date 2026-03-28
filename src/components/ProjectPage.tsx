@@ -158,7 +158,7 @@ export const ProjectPage: React.FC = () => {
         </Suspense>
       </div>
 
-      <div className="relative z-10">
+      <div className="relative z-10 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">
         <HeroSection />
         <FeaturesSection />
         <ProcessSection />
