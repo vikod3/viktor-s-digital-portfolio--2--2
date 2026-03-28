@@ -194,6 +194,9 @@ export const ProjectPage: React.FC = () => {
 
       <div className="relative z-10 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_input]:pointer-events-auto">
         <HeroSection />
+      </div>
+
+      <div className="relative z-30 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto [&_input]:pointer-events-auto">
         <FeaturesSection />
         <ProcessSection />
         <StatsSection />
