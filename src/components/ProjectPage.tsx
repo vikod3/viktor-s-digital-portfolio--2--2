@@ -26,47 +26,47 @@ function getSplineTransform(scrollProgress: number): SplineTransform {
   if (scrollProgress < 0.15) {
     return { translateX: 28, translateY: 0, scale: 1.1, opacity: 1 };
   }
-  // Hero -> Features (0.15 - 0.25): Slide RIGHT to LEFT, shrink
+  // Hero -> Features (0.15 - 0.25): Slide RIGHT to LEFT
   if (scrollProgress < 0.25) {
     const t = (scrollProgress - 0.15) / 0.1;
     return {
       translateX: lerp(28, -30, t),
       translateY: lerp(0, -2, t),
-      scale: lerp(1.1, 0.75, t),
+      scale: lerp(1.1, 1.05, t),
       opacity: 1,
     };
   }
-  // Features (0.25 - 0.38): Hold LEFT, small
+  // Features (0.25 - 0.38): Hold LEFT, large
   if (scrollProgress < 0.38) {
-    return { translateX: -30, translateY: -2, scale: 0.75, opacity: 1 };
+    return { translateX: -30, translateY: -2, scale: 1.05, opacity: 1 };
   }
-  // Features -> Process (0.38 - 0.48): Slide LEFT to RIGHT, grow
+  // Features -> Process (0.38 - 0.48): Slide LEFT to RIGHT
   if (scrollProgress < 0.48) {
     const t = (scrollProgress - 0.38) / 0.1;
     return {
       translateX: lerp(-30, 30, t),
       translateY: lerp(-2, 0, t),
-      scale: lerp(0.75, 1.0, t),
+      scale: lerp(1.05, 1.1, t),
       opacity: 1,
     };
   }
-  // Process (0.48 - 0.58): Hold RIGHT, medium
+  // Process (0.48 - 0.58): Hold RIGHT, large
   if (scrollProgress < 0.58) {
-    return { translateX: 30, translateY: 0, scale: 1.0, opacity: 1 };
+    return { translateX: 30, translateY: 0, scale: 1.1, opacity: 1 };
   }
-  // Process -> Stats (0.58 - 0.68): Slide RIGHT to LEFT, shrink
+  // Process -> Stats (0.58 - 0.68): Slide RIGHT to LEFT
   if (scrollProgress < 0.68) {
     const t = (scrollProgress - 0.58) / 0.1;
     return {
       translateX: lerp(30, -28, t),
       translateY: lerp(0, -3, t),
-      scale: lerp(1.0, 0.65, t),
+      scale: lerp(1.1, 0.95, t),
       opacity: 1,
     };
   }
-  // Stats (0.68 - 0.80): Hold LEFT, smallest
+  // Stats (0.68 - 0.80): Hold LEFT
   if (scrollProgress < 0.80) {
-    return { translateX: -28, translateY: -3, scale: 0.65, opacity: 1 };
+    return { translateX: -28, translateY: -3, scale: 0.95, opacity: 1 };
   }
   // Stats -> Footer (0.80 - 0.90): Center + grow, stay visible
   if (scrollProgress < 0.90) {
@@ -74,7 +74,7 @@ function getSplineTransform(scrollProgress: number): SplineTransform {
     return {
       translateX: lerp(-28, 0, t),
       translateY: lerp(-3, 0, t),
-      scale: lerp(0.65, 1.1, t),
+      scale: lerp(0.95, 1.1, t),
       opacity: 1,
     };
   }
