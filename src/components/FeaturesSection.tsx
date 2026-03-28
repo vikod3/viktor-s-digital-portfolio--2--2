@@ -83,37 +83,39 @@ export const FeaturesSection: React.FC = () => {
   const { ref, isInView } = useInView(0.05);
 
   return (
-    <section id="features" className="relative z-10 pointer-events-none min-h-screen py-24 md:py-32 px-4 md:px-6">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-16 md:mb-20"
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="h-px w-12 bg-white/20" />
-            <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/50">
-              Core Systems
-            </span>
-          </div>
-          <h2 className="text-[32px] md:text-[48px] font-display font-extralight tracking-tight uppercase leading-[0.95]">
-            <span className="bg-gradient-to-r from-white/40 to-white bg-clip-text text-transparent">
-              Built for
-            </span>
-            <br />
-            <span className="text-white">Performance</span>
-          </h2>
-          <p className="mt-6 text-sm text-white/50 max-w-lg leading-relaxed font-light">
-            Every component engineered for speed, reliability, and scale. No compromises.
-          </p>
-        </motion.div>
+    <section id="features" className="relative z-10 pointer-events-none min-h-screen py-24 md:py-32 px-4 md:px-8 lg:px-12">
+      <div className="flex justify-end">
+        <div className="w-full md:w-[55%]">
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8 }}
+            className="mb-16 md:mb-20"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <div className="h-px w-12 bg-white/20" />
+              <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/50">
+                Core Systems
+              </span>
+            </div>
+            <h2 className="text-[32px] md:text-[48px] font-display font-extralight tracking-tight uppercase leading-[0.95]">
+              <span className="bg-gradient-to-r from-white/40 to-white bg-clip-text text-transparent">
+                Built for
+              </span>
+              <br />
+              <span className="text-white">Performance</span>
+            </h2>
+            <p className="mt-6 text-sm text-white/50 max-w-lg leading-relaxed font-light">
+              Every component engineered for speed, reliability, and scale. No compromises.
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {features.map((feature, i) => (
-            <FeatureCard key={feature.title} feature={feature} index={i} />
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {features.map((feature, i) => (
+              <FeatureCard key={feature.title} feature={feature} index={i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -16,43 +16,74 @@ interface SplineTransform {
   opacity: number;
 }
 
+function lerp(a: number, b: number, t: number): number {
+  return a + (b - a) * t;
+}
+
 function getSplineTransform(scrollProgress: number): SplineTransform {
+  // Hero (0 - 0.15): Spline on the RIGHT, large
   if (scrollProgress < 0.15) {
-    return { translateX: 15, translateY: 0, scale: 1, opacity: 1 };
+    return { translateX: 28, translateY: 0, scale: 1.1, opacity: 1 };
   }
-  if (scrollProgress < 0.35) {
-    const t = (scrollProgress - 0.15) / 0.2;
+  // Hero -> Features (0.15 - 0.25): Slide RIGHT to LEFT, shrink
+  if (scrollProgress < 0.25) {
+    const t = (scrollProgress - 0.15) / 0.1;
     return {
-      translateX: 15 - t * 45,
-      translateY: t * -5,
-      scale: 1 + t * 0.15,
+      translateX: lerp(28, -30, t),
+      translateY: lerp(0, -2, t),
+      scale: lerp(1.1, 0.75, t),
       opacity: 1,
     };
   }
-  if (scrollProgress < 0.55) {
-    const t = (scrollProgress - 0.35) / 0.2;
+  // Features (0.25 - 0.38): Hold LEFT, small
+  if (scrollProgress < 0.38) {
+    return { translateX: -30, translateY: -2, scale: 0.75, opacity: 1 };
+  }
+  // Features -> Process (0.38 - 0.48): Slide LEFT to RIGHT, grow
+  if (scrollProgress < 0.48) {
+    const t = (scrollProgress - 0.38) / 0.1;
     return {
-      translateX: -30 + t * 60,
-      translateY: -5 + t * 10,
-      scale: 1.15 - t * 0.3,
-      opacity: 1 - t * 0.3,
+      translateX: lerp(-30, 30, t),
+      translateY: lerp(-2, 0, t),
+      scale: lerp(0.75, 1.0, t),
+      opacity: 1,
     };
   }
-  if (scrollProgress < 0.75) {
-    const t = (scrollProgress - 0.55) / 0.2;
+  // Process (0.48 - 0.58): Hold RIGHT, medium
+  if (scrollProgress < 0.58) {
+    return { translateX: 30, translateY: 0, scale: 1.0, opacity: 1 };
+  }
+  // Process -> Stats (0.58 - 0.68): Slide RIGHT to LEFT, shrink
+  if (scrollProgress < 0.68) {
+    const t = (scrollProgress - 0.58) / 0.1;
     return {
-      translateX: 30 - t * 30,
-      translateY: 5 - t * 5,
-      scale: 0.85 + t * 0.25,
-      opacity: 0.7 + t * 0.3,
+      translateX: lerp(30, -28, t),
+      translateY: lerp(0, -3, t),
+      scale: lerp(1.0, 0.65, t),
+      opacity: 1,
     };
   }
-  const t = (scrollProgress - 0.75) / 0.25;
+  // Stats (0.68 - 0.80): Hold LEFT, smallest
+  if (scrollProgress < 0.80) {
+    return { translateX: -28, translateY: -3, scale: 0.65, opacity: 1 };
+  }
+  // Stats -> Footer (0.80 - 0.90): Center + grow, fade out
+  if (scrollProgress < 0.90) {
+    const t = (scrollProgress - 0.80) / 0.1;
+    return {
+      translateX: lerp(-28, 0, t),
+      translateY: lerp(-3, -5, t),
+      scale: lerp(0.65, 1.2, t),
+      opacity: lerp(1, 0.3, t),
+    };
+  }
+  // Footer (0.90 - 1.0): Center, large, faded
+  const t = (scrollProgress - 0.90) / 0.1;
   return {
     translateX: 0,
-    translateY: t * -10,
-    scale: 1.1 - t * 0.1,
-    opacity: 1 - t * 0.6,
+    translateY: lerp(-5, -8, t),
+    scale: lerp(1.2, 1.3, t),
+    opacity: lerp(0.3, 0, t),
   };
 }
 
@@ -60,9 +91,9 @@ export const ProjectPage: React.FC = () => {
   const splineRef = useRef<Application | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [splineTransform, setSplineTransform] = useState<SplineTransform>({
-    translateX: 15,
+    translateX: 28,
     translateY: 0,
-    scale: 1,
+    scale: 1.1,
     opacity: 1,
   });
 
@@ -88,8 +119,8 @@ export const ProjectPage: React.FC = () => {
           const allObjects = splineRef.current.getAllObjects();
           if (allObjects.length > 0) {
             const mainObj = allObjects[0];
-            mainObj.rotation.y = scrollProgress * Math.PI * 1.5;
-            mainObj.rotation.x = Math.sin(scrollProgress * Math.PI) * 0.15;
+            mainObj.rotation.y = scrollProgress * Math.PI * 2;
+            mainObj.rotation.x = Math.sin(scrollProgress * Math.PI) * 0.2;
           }
         }
       });
@@ -112,11 +143,12 @@ export const ProjectPage: React.FC = () => {
       <ScrollProgressBar />
 
       <div
-        className="fixed inset-0 z-0 transition-opacity duration-300"
+        className="fixed inset-0 z-0"
         style={{
           transform: `translateX(${splineTransform.translateX}%) translateY(${splineTransform.translateY}%) scale(${splineTransform.scale})`,
           opacity: splineTransform.opacity,
           willChange: "transform, opacity",
+          transition: "opacity 0.15s ease-out",
         }}
       >
         <Suspense fallback={<div className="w-full h-full bg-black" />}>

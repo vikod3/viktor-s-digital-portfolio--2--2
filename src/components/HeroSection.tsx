@@ -4,53 +4,51 @@ import { Snowflake, Maximize, Zap, ChevronDown } from "lucide-react";
 
 export const HeroSection: React.FC = () => {
   return (
-    <section id="hero" className="min-h-screen flex flex-col justify-between px-4 md:px-6 pt-6 md:pt-10 pb-6 relative z-10 pointer-events-none">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-        <div className="col-span-1 md:col-span-12 space-y-6 md:space-y-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <h1 className="text-[40px] sm:text-[56px] md:text-[72px] leading-[1] md:leading-[0.9] font-extralight tracking-tight uppercase max-w-xl font-display bg-gradient-to-r from-white/20 via-white/70 to-white bg-clip-text text-transparent">
-              Automation <br />
-              Machines &bull;
-            </h1>
-          </motion.div>
+    <section id="hero" className="min-h-screen flex flex-col justify-between px-4 md:px-8 lg:px-12 pt-6 md:pt-10 pb-6 relative z-10 pointer-events-none">
+      <div className="max-w-[50%] space-y-6 md:space-y-8">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h1 className="text-[40px] sm:text-[56px] md:text-[72px] leading-[1] md:leading-[0.9] font-extralight tracking-tight uppercase font-display bg-gradient-to-r from-white/20 via-white/70 to-white bg-clip-text text-transparent">
+            Automation <br />
+            Machines &bull;
+          </h1>
+        </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-sm text-white max-w-md leading-relaxed font-light"
-          >
-            Developed with high-end skills and a pixel-perfect frame for those who don't just browse the web—they build it. Code your dreams....
-          </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-sm text-white max-w-md leading-relaxed font-light"
+        >
+          Developed with high-end skills and a pixel-perfect frame for those who don't just browse the web—they build it. Code your dreams....
+        </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex gap-4"
-          >
-            {[Snowflake, Maximize, Zap].map((Icon, i) => (
-              <div
-                key={i}
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 transition-colors cursor-pointer pointer-events-auto"
-              >
-                <Icon size={16} className="text-white/80" />
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="flex gap-4"
+        >
+          {[Snowflake, Maximize, Zap].map((Icon, i) => (
+            <div
+              key={i}
+              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:border-white/60 transition-colors cursor-pointer pointer-events-auto"
+            >
+              <Icon size={16} className="text-white/80" />
+            </div>
+          ))}
+        </motion.div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-0 mt-16 md:mt-0">
+      <div className="max-w-[50%]">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="p-6 md:p-8 w-full md:max-w-md pointer-events-auto"
+          className="p-6 md:p-8 w-full pointer-events-auto"
         >
           <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/60 mb-5">
             Technical Specs
@@ -81,9 +79,9 @@ export const HeroSection: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
-          className="flex items-center w-full md:w-auto"
+          className="mt-6"
         >
-          <div className="flex flex-wrap gap-2 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-full p-2 border border-white/5 w-full md:w-auto pointer-events-auto">
+          <div className="flex flex-wrap gap-2 bg-white/10 backdrop-blur-md rounded-2xl md:rounded-full p-2 border border-white/5 w-fit pointer-events-auto">
             <span className="px-4 py-2 text-[10px] font-mono tracking-widest bg-white text-black rounded-full">
               TS/JS
             </span>
@@ -104,7 +102,7 @@ export const HeroSection: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.4 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-auto"
+        className="absolute bottom-8 left-[25%] -translate-x-1/2 pointer-events-auto"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

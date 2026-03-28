@@ -95,8 +95,8 @@ export const ProcessSection: React.FC = () => {
   const { ref, isInView } = useInView(0.05);
 
   return (
-    <section id="process" className="relative z-10 pointer-events-none min-h-screen py-24 md:py-32 px-4 md:px-6">
-      <div className="max-w-4xl mx-auto">
+    <section id="process" className="relative z-10 pointer-events-none min-h-screen py-24 md:py-32 px-4 md:px-8 lg:px-12">
+      <div className="w-full md:w-[50%]">
         <motion.div
           ref={ref}
           initial={{ opacity: 0 }}
