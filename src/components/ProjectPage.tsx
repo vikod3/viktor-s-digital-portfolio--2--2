@@ -142,7 +142,7 @@ export const ProjectPage: React.FC = () => {
       <ScrollProgressBar />
 
       <div
-        className="fixed inset-0 z-0"
+        className="fixed inset-0 z-0 pointer-events-none [&_canvas]:pointer-events-auto"
         style={{
           transform: `translateX(${splineTransform.translateX}%) translateY(${splineTransform.translateY}%) scale(${splineTransform.scale})`,
           opacity: splineTransform.opacity,
@@ -158,7 +158,7 @@ export const ProjectPage: React.FC = () => {
         </Suspense>
       </div>
 
-      <div className="relative z-10 pointer-events-none [&_a]:pointer-events-auto [&_button]:pointer-events-auto">
+      <div className="relative z-10">
         <HeroSection />
         <FeaturesSection />
         <ProcessSection />
